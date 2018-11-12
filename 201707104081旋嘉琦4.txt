@@ -1,0 +1,127 @@
+Microsoft Windows [版本 10.0.17134.345]
+(c) 2018 Microsoft Corporation。保留所有权利。
+
+C:\WINDOWS\system32>net start mysql80
+请求的服务已经启动。
+
+请键入 NET HELPMSG 2182 以获得更多的帮助。
+
+
+C:\WINDOWS\system32>mysql -u root -p
+Enter password: ******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 61
+Server version: 8.0.12 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| huwang100          |
+| huwang200          |
+| information_schema |
+| mysql              |
+| new_schema         |
+| new_schema1        |
+| performance_schema |
+| shopping           |
+| sys                |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> use huwang100;
+Database changed
+mysql> create table movie(id int primary key auto_increment not null,name varchar(30) not null,year varchar(5) not null,daoyan varchar(10) not null,grade varchar(10) not null);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc movie;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| id     | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name   | varchar(30) | NO   |     | NULL    |                |
+| year   | varchar(5)  | NO   |     | NULL    |                |
+| daoyan | varchar(10) | NO   |     | NULL    |                |
+| grade  | varchar(10) | NO   |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into movie(name,year,daoyan, grade) values("ying",2018,"zhang","6.9");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from movie;
++----+------+------+--------+-------+
+| id | name | year | daoyan | grade |
++----+------+------+--------+-------+
+|  1 | ying | 2018 | zhang  | 6.9   |
++----+------+------+--------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into movie(name,year,daoyan, grade) values("pangzixingdongdu",2018,"bao","9.0");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into movie(name,year,daoyan, grade) values("lichadeguma",2018,"shen","8.1");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into movie(name,year,daoyan, grade) values("huangjinxiongdi",2018,"chen","6.9");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from movie;
++----+------------------+------+--------+-------+
+| id | name             | year | daoyan | grade |
++----+------------------+------+--------+-------+
+|  1 | ying             | 2018 | zhang  | 6.9   |
+|  2 | pangzixingdongdu | 2018 | bao    | 9.0   |
+|  3 | lichadeguma      | 2018 | shen   | 8.1   |
+|  4 | huangjinxiongdi  | 2018 | chen   | 6.9   |
++----+------------------+------+--------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select name from movie where name like "%sh%";
+Empty set (0.00 sec)
+
+mysql> select name from movie where name like "%in%";
++------------------+
+| name             |
++------------------+
+| ying             |
+| pangzixingdongdu |
+| huangjinxiongdi  |
++------------------+
+3 rows in set (0.00 sec)
+
+mysql> select name from movie where daoyan like "%en%";
++-----------------+
+| name            |
++-----------------+
+| lichadeguma     |
+| huangjinxiongdi |
++-----------------+
+2 rows in set (0.00 sec)
+
+mysql> select "year"="2018";
++---------------+
+| "year"="2018" |
++---------------+
+|             0 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select grade,count(grade) from movie where grade >= 8.0 group by grade;
++-------+--------------+
+| grade | count(grade) |
++-------+--------------+
+| 9.0   |            1 |
+| 8.1   |            1 |
++-------+--------------+
+2 rows in set (0.00 sec)
+
+mysql>
